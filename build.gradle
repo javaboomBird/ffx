@@ -1,16 +1,36 @@
+//buildScript中的声明是gradle脚本自身需要使用的资源。可以声明的资源包括依赖项、第三方插件、maven仓库地址等
+buildscript {
+
+    //ext是自定义属性,一般来说关于版本的信息都利用ext放在另一个自己新建的gradle文件中集中管理
+    ext.SpringCloudVersion = 'Greenwich.SR4'
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+        jcenter()
+    }
+
+}
+
 plugins {
     id 'java'
 }
+
+//引入统一版本配置文件,叫做应用脚本插件，其实这不能算一个插件，它只是一个脚本。应用脚本插件，其实就是把这个脚本加载进来，和二进制插件不同的是它使用的是from关键字.后面紧跟的坫一个脚本文件，可以是本地的，也可以是网络存在的，如果是网络上的话要使用HTTP URL
+apply from: 'version.gradle'
 
 group 'org.interface21'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+task printStringClass {
+    println "SpringCloud的版本是${versionName},版本号是:${versionCode}"
 }
