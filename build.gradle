@@ -1,8 +1,20 @@
-//buildScript中的声明是gradle脚本自身需要使用的资源。可以声明的资源包括依赖项、第三方插件、maven仓库地址等
+group 'org.interface21'
+version '1.0-SNAPSHOT'
+
+
+
+//引入统一版本配置文件,叫做应用脚本插件，其实这不能算一个插件，它只是一个脚本。应用脚本插件，其实就是把这个脚本加载进来，和二进制插件不同的是它使用的是from关键字.后面紧跟的坫一个脚本文件，可以是本地的，也可以是网络存在的，如果是网络上的话要使用HTTP URL
+apply from: 'version.gradle'
+
+//buildScript中的声明是gradle脚本自身需要使用的资源,定义资源的来源,可以声明的资源包括依赖项、第三方插件、maven仓库地址等,再使用apply plugin来应用插件
+//一般使用第三方脚本或者插件才需要buildscript来定义资源,如果是使用gradle官方内部插件,可以直接使用plugins{}
 buildscript {
 
     //ext是自定义属性,一般来说关于版本的信息都利用ext放在另一个自己新建的gradle文件中集中管理
-    ext.SpringCloudVersion = 'Greenwich.SR4'
+    ext {
+        SpringCloudVersion = 'Greenwich.SR4'
+        springBootVersion = '2.1.11.RELEASE'
+    }
 
     repositories {
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
@@ -12,25 +24,62 @@ buildscript {
         jcenter()
     }
 
+    dependencies {
+        //springboot-gradle插件的另外一种应用方式
+        //plugins {
+        //  id "org.springframework.boot" version "2.2.2.RELEASE"
+        //}
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+
 }
 
-plugins {
-    id 'java'
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    idea {
+        module {
+            inheritOutputDirs = false
+        }
+    }
+
 }
 
-//引入统一版本配置文件,叫做应用脚本插件，其实这不能算一个插件，它只是一个脚本。应用脚本插件，其实就是把这个脚本加载进来，和二进制插件不同的是它使用的是from关键字.后面紧跟的坫一个脚本文件，可以是本地的，也可以是网络存在的，如果是网络上的话要使用HTTP URL
-apply from: 'version.gradle'
-
-group 'org.interface21'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
 
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+
+//所有子项目或模块用到的
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    sourceCompatibility = 1.8
+
+    //导入依赖
+    dependencies {
+        implementation "org.projectlombok:lombok:${lombokVersion}"
+    }
+
+    //dependency-management插件自动管理springboot的依赖
+    dependencyManagement {
+
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        }
+
+    }
+
+
+
+
 }
+
+
 
 task printStringClass {
-    println "SpringCloud的版本是${versionName},版本号是:${versionCode}"
+    println "SpringCloud的版本是${springCloudVersion},SpringBoot版本号是:${springBootVersion}"
 }
