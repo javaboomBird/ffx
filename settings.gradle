@@ -1,3 +1,6 @@
 rootProject.name = 'ffx'
 include 'gateway'
 include 'admin-server'
+include 'common'
+include 'provider'
+include 'consumer'

@@ -1,0 +1,17 @@
+//父项目已经定义了springboot-gralde插件,这里直接应用
+//apply plugin: 'org.springframework.boot'
+group = 'org.interface21'
+version = '0.0.1-SNAPSHOT'
+
+configurations {
+    implementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-actuator'
+    testImplementation.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-test'
+
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    testImplementation "org.springframework.amqp:spring-rabbit-test:${springBootVersion}"
+
+}

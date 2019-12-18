@@ -1,0 +1,16 @@
+//父项目已经定义了springboot-gralde插件,这里直接应用
+apply plugin: 'org.springframework.boot'
+
+group = 'org.interface21.provider'
+version = '0.0.1-SNAPSHOT'
+
+
+
+dependencies {
+    implementation project(':common')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+}
+

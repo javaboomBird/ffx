@@ -59,11 +59,39 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     sourceCompatibility = 1.8
 
+    ext{
+        springBootVersion = '2.1.11.RELEASE'
+    }
+
+    sourceSets {
+
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+
+        }
+
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
     //导入依赖
     dependencies {
-        implementation "org.projectlombok:lombok:${lombokVersion}"
+
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         //暴露服务端点
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation "com.alibaba:fastjson:${fastJsonVersion}"
     }
 
     //dependency-management插件自动管理springboot的依赖

@@ -1,0 +1,17 @@
+server:
+  port: ${SERVER_PORT:8701}
+
+spring:
+  application:
+    name: ffx-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REGISTER_HOST:120.79.233.86}:${REGISTER_PORT:8848}
+        namespace: 313f9320-ad1a-49e3-8af8-0c4be24221b1
+      config:
+        server-addr: ${REGISTER_HOST:120.79.233.86}:${REGISTER_PORT:8848}
+        file-extension: yaml
+        namespace: 313f9320-ad1a-49e3-8af8-0c4be24221b1
+  profiles:
+    active: dev

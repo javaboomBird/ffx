@@ -1,2 +1,14 @@
 # Project exclude paths
 /.gradle/
+/*/build/
+
+.idea/
+admin-server/.gradle/5.6.4/vcsMetadata-1/
+admin-server/build/
+admin-server/src/main/resources/static/
+admin-server/src/main/resources/templates/
+build/
+gateway/.gradle/6.0.1/vcsMetadata-1/
+gateway/build/generated/
+gateway/build/resources/main/application.yml
+gateway/build/tmp/
