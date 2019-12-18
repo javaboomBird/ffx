@@ -1,15 +1,10 @@
 server:
-  port: ${SERVER_PORT:8400}
+  port: ${SERVER_PORT:8200}
 
 spring:
   application:
-    name: ffx-gateway
+    name: ffx-admin-server
   cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: false
-          lower-case-service-id: true
     nacos:
       discovery:
         server-addr: ${REGISTER_HOST:120.79.233.86}:${REGISTER_PORT:8848}

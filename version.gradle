@@ -4,5 +4,6 @@ ext {
     springCloudVersion = 'Greenwich.SR4'
     springCloudAlibabaVersion = '2.1.1.RELEASE'
     lombokVersion = '1.18.10'
+    springBootAdminVersion = '2.1.6'
 
 }
